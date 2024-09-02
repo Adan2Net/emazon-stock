@@ -5,9 +5,9 @@ spring:
     default-property-inclusion: non_null
     property-naming-strategy: SNAKE_CASE
   datasource:
-    url: ${DB_HOST}
-    username: ${DB_USER}
-    password: ${DB_PASSWORD}
+    url: jdbc:mysql://localhost:3306/stock_db?allowPublicKeyRetrieval=true&useSSL=false
+    username: user
+    password: user3324234
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     show-sql: true
