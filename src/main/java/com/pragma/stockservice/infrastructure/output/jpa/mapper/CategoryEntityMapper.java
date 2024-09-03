@@ -1,7 +1,10 @@
 package com.pragma.stockservice.infrastructure.output.jpa.mapper;
 
 
+import com.pragma.stockservice.application.dto.CategoryPaginationResponse;
+import com.pragma.stockservice.application.dto.CategoryResponse;
 import com.pragma.stockservice.domain.model.Category;
+import com.pragma.stockservice.domain.model.ListPage;
 import com.pragma.stockservice.infrastructure.output.jpa.entity.CategoryEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
@@ -12,4 +15,7 @@ public interface CategoryEntityMapper {
     CategoryEntity toEntity(Category category);
 
     Category toCategory(CategoryEntity categoryEntity);
+
+    CategoryPaginationResponse<CategoryResponse> toCategoryPaginationResponse(ListPage<Category> categoryEntity);
+    ListPage<Category> toListPage(CategoryPaginationResponse categoryPaginationResponse);
 }

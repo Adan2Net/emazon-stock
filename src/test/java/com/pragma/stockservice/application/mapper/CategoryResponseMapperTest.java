@@ -1,7 +1,9 @@
 package com.pragma.stockservice.application.mapper;
 
 import com.pragma.stockservice.application.dto.CategoryResponse;
+import com.pragma.stockservice.application.dto.SortDirectionRequest;
 import com.pragma.stockservice.domain.model.Category;
+import com.pragma.stockservice.domain.model.SortDirection;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
 
@@ -14,8 +16,7 @@ class CategoryResponseMapperTest {
     @Test
     void testToCategoryResponse() {
         // Arrange
-        Category category = new Category("Test Category", "Test Description");
-        category.setId(1L);
+        Category category = new Category("Test Category", "Test Category");
 
         // Act
         CategoryResponse response = mapper.toCategoryResponse(category);
@@ -25,6 +26,7 @@ class CategoryResponseMapperTest {
         assertEquals(category.getName(), response.getName(), "The category name should match the response name");
         assertEquals(category.getDescription(), response.getDescription(), "The category description should match the response description");
     }
+
 
     @Test
     void testToCategory() {
@@ -38,5 +40,17 @@ class CategoryResponseMapperTest {
         assertEquals(response.getId(), category.getId(), "The category ID should match the response ID");
         assertEquals(response.getName(), category.getName(), "The category name should match the response name");
         assertEquals(response.getDescription(), category.getDescription(), "The category description should match the response description");
+    }
+
+    @Test
+    void testToSortDirection() {
+        // Arrange
+        SortDirectionRequest sortDirectionRequest = SortDirectionRequest.ASC;
+
+        // Act
+        SortDirection sortDirection = mapper.toSortDirection(sortDirectionRequest);
+
+        // Assert
+        assertEquals(SortDirection.ASC, sortDirection, "The SortDirection should be ASC");
     }
 }
