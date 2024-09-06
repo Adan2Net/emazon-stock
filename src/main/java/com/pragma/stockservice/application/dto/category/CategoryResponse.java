@@ -1,6 +1,5 @@
-package com.pragma.stockservice.application.dto;
+package com.pragma.stockservice.application.dto.category;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 

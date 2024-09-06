@@ -1,12 +1,11 @@
 package com.pragma.stockservice.infrastructure.input.rest;
 
-import com.pragma.stockservice.application.dto.CategoryPaginationResponse;
-import com.pragma.stockservice.application.dto.CategoryRequest;
-import com.pragma.stockservice.application.dto.CategoryResponse;
 import com.pragma.stockservice.application.dto.SortDirectionRequest;
-import com.pragma.stockservice.application.handler.ICategoryHandler;
-import com.pragma.stockservice.application.mapper.CategoryRequestMapper;
-import com.pragma.stockservice.application.mapper.CategoryResponseMapper;
+import com.pragma.stockservice.application.dto.category.CategoryPaginationResponse;
+import com.pragma.stockservice.application.dto.category.CategoryRequest;
+import com.pragma.stockservice.application.dto.category.CategoryResponse;
+import com.pragma.stockservice.application.handler.category.ICategoryHandler;
+import com.pragma.stockservice.application.mapper.category.CategoryResponseMapper;
 import com.pragma.stockservice.domain.api.ICategoryServicePort;
 import com.pragma.stockservice.domain.model.Category;
 import com.pragma.stockservice.domain.model.error.ErrorResponse;

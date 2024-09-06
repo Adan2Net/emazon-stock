@@ -1,4 +1,4 @@
-package com.pragma.stockservice.application.dto;
+package com.pragma.stockservice.application.dto.category;
 
 import java.util.List;
 

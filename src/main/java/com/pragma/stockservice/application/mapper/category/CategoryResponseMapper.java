@@ -1,7 +1,7 @@
-package com.pragma.stockservice.application.mapper;
+package com.pragma.stockservice.application.mapper.category;
 
-import com.pragma.stockservice.application.dto.CategoryResponse;
 import com.pragma.stockservice.application.dto.SortDirectionRequest;
+import com.pragma.stockservice.application.dto.category.CategoryResponse;
 import com.pragma.stockservice.domain.model.Category;
 import com.pragma.stockservice.domain.model.SortDirection;
 import org.mapstruct.Mapper;

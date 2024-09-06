@@ -1,11 +1,10 @@
-package com.pragma.stockservice.application.handler;
+package com.pragma.stockservice.application.handler.category;
 
 import com.pragma.stockservice.domain.model.Category;
 import com.pragma.stockservice.domain.spi.ICategoryPersistencePort;
 import com.pragma.stockservice.infrastructure.exception.DuplicateCategoryNameException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
 
 @Service
 @RequiredArgsConstructor
