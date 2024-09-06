@@ -5,6 +5,7 @@ import com.pragma.stockservice.domain.model.Category;
 import com.pragma.stockservice.domain.model.ListPage;
 import com.pragma.stockservice.domain.model.SortDirection;
 import com.pragma.stockservice.domain.spi.ICategoryPersistencePort;
+import com.pragma.stockservice.infrastructure.exception.DuplicateCategoryNameException;
 import com.pragma.stockservice.infrastructure.exception.InvalidSortDirectionException;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +23,12 @@ public class CategoryUseCase implements ICategoryServicePort {
 
     @Override
     public Category save(Category category) {
+        // Verifica si ya existe una categoría con el mismo nombre
+        if (categoryPersistencePort.findByName(category.getName()).isPresent()) {
+            throw new DuplicateCategoryNameException("Category with name " + category.getName() + " already exists.");
+        }
+
+        // Si no existe, procede a guardarla
         return categoryPersistencePort.save(category);
     }
 
