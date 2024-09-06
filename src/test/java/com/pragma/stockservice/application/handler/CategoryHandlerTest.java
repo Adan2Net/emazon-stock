@@ -1,5 +1,6 @@
 package com.pragma.stockservice.application.handler;
 
+import com.pragma.stockservice.application.handler.category.CategoryHandler;
 import com.pragma.stockservice.domain.model.Category;
 import com.pragma.stockservice.domain.spi.ICategoryPersistencePort;
 import com.pragma.stockservice.infrastructure.exception.DuplicateCategoryNameException;

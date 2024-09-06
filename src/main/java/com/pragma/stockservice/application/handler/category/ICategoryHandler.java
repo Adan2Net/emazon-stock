@@ -1,4 +1,4 @@
-package com.pragma.stockservice.application.handler;
+package com.pragma.stockservice.application.handler.category;
 
 import com.pragma.stockservice.domain.model.Category;
 

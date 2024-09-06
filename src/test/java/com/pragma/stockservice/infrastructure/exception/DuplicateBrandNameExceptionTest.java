@@ -5,20 +5,20 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class DuplicateCategoryNameExceptionTest {
+class DuplicateBrandNameExceptionTest {
 
     @Test
-    void testDuplicateCategoryNameExceptionMessage() {
+    void testDuplicateBrandNameExceptionMessage() {
         // Arrange
-        String expectedMessage = "Duplicate category name";
+        String expectedMessage = "Duplicate brand name";
 
         // Act & Assert
-        DuplicateCategoryNameException exception = assertThrows(
-                DuplicateCategoryNameException.class,
+        DuplicateBrandNameException exception = assertThrows(
+                DuplicateBrandNameException.class,
                 () -> {
-                    throw new DuplicateCategoryNameException(expectedMessage);
+                    throw new DuplicateBrandNameException(expectedMessage);
                 },
-                "Expected DuplicateCategoryNameException to be thrown"
+                "Expected DuplicateBrandNameException to be thrown"
         );
 
         // Assert

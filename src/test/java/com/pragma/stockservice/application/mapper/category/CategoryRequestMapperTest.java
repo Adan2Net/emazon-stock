@@ -1,6 +1,6 @@
-package com.pragma.stockservice.application.mapper;
+package com.pragma.stockservice.application.mapper.category;
 
-import com.pragma.stockservice.application.dto.CategoryRequest;
+import com.pragma.stockservice.application.dto.category.CategoryRequest;
 import com.pragma.stockservice.domain.model.Category;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;

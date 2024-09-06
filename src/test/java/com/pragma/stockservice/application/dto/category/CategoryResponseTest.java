@@ -1,8 +1,8 @@
-package com.pragma.stockservice.application.dto;
+package com.pragma.stockservice.application.dto.category;
 
 import org.junit.jupiter.api.Test;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 class CategoryResponseTest {
 
