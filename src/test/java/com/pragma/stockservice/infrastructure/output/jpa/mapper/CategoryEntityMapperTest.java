@@ -1,9 +1,14 @@
 package com.pragma.stockservice.infrastructure.output.jpa.mapper;
 
+import com.pragma.stockservice.application.dto.SortDirectionRequest;
+import com.pragma.stockservice.application.dto.brand.BrandPaginationResponse;
+import com.pragma.stockservice.application.dto.brand.BrandResponse;
 import com.pragma.stockservice.application.dto.category.CategoryPaginationResponse;
 import com.pragma.stockservice.application.dto.category.CategoryResponse;
+import com.pragma.stockservice.domain.model.Brand;
 import com.pragma.stockservice.domain.model.Category;
 import com.pragma.stockservice.domain.model.ListPage;
+import com.pragma.stockservice.domain.model.SortDirection;
 import com.pragma.stockservice.infrastructure.output.jpa.entity.CategoryEntity;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -53,42 +58,33 @@ class CategoryEntityMapperTest {
         assertEquals(categoryEntity.getDescription(), category.getDescription());
     }
 
-//    @Test
-//    void testToCategoryPaginationResponse() {
-//        // Arrange
-//        Category category = new Category( "Beverages", "Drinks and beverages");
-//        List<Category> categories = List.of(category);
-//        ListPage<Category> listPage = new ListPage<>(categories, 0, 10, 1, 1, true, true);
-//
-//        CategoryResponse categoryResponse = new CategoryResponse(1L, "Beverages", "Drinks and beverages");
-//        CategoryPaginationResponse<CategoryResponse> expectedPaginationResponse = new CategoryPaginationResponse<>(
-//                List.of(categoryResponse),
-//                0, 10, 1, 1, true, true
-//        );
-//
-//        // Act
-//        CategoryPaginationResponse<CategoryResponse> paginationResponse = categoryEntityMapper.toCategoryPaginationResponse(listPage);
-//
-//        // Assert
-//        assertNotNull(paginationResponse);
-//        assertEquals(expectedPaginationResponse.pageNumber(), paginationResponse.pageNumber());
-//        assertEquals(expectedPaginationResponse.pageSize(), paginationResponse.pageSize());
-//        assertEquals(expectedPaginationResponse.totalElements(), paginationResponse.totalElements());
-//        assertEquals(expectedPaginationResponse.totalPages(), paginationResponse.totalPages());
-//        assertEquals(expectedPaginationResponse.isFirst(), paginationResponse.isFirst());
-//        assertEquals(expectedPaginationResponse.isLast(), paginationResponse.isLast());
-//
-//        assertNotNull(paginationResponse.content());
-//        assertEquals(expectedPaginationResponse.content().size(), paginationResponse.content().size());
-//
-//        for (int i = 0; i < expectedPaginationResponse.content().size(); i++) {
-//            CategoryResponse expected = expectedPaginationResponse.content().get(i);
-//            CategoryResponse actual = paginationResponse.content().get(i);
-//            assertEquals(expected.getId(), actual.getId());
-//            assertEquals(expected.getName(), actual.getName());
-//            assertEquals(expected.getDescription(), actual.getDescription());
-//        }
-//    }
+    @Test
+    void testToCategoryPaginationResponse() {
+        // Arrange
+        List<Category> categoryList = List.of(new Category("Nike", "Sports category"));
+        ListPage<Category> listPage = new ListPage<>(categoryList, 0, 10, 1L, 1, true, true);
+
+        // Act
+        CategoryPaginationResponse<CategoryResponse> paginationResponse = categoryEntityMapper.toCategoryPaginationResponse(listPage);
+
+        // Assert
+        assertNotNull(paginationResponse);
+        assertEquals(1, paginationResponse.content().size());
+        assertEquals("Nike", paginationResponse.content().get(0).getName());
+        assertEquals("Sports category", paginationResponse.content().get(0).getDescription());
+        assertEquals(0, paginationResponse.pageNumber());
+        assertEquals(10, paginationResponse.pageSize());
+        assertEquals(1L, paginationResponse.totalElements());
+        assertEquals(1, paginationResponse.totalPages());
+        assertEquals(false, paginationResponse.isFirst());
+        assertEquals(false, paginationResponse.isLast());
+    }
+
+    // Arrange
+    SortDirectionRequest sortDirectionRequest = SortDirectionRequest.ASC;
+    SortDirection sortDirection = SortDirection.ASC;
+    int page = 0;
+    int size = 10;
 
 //    @Test
 //    void testToListPage() {

@@ -1,23 +1,23 @@
-package com.pragma.stockservice.domain.usercase;
+package com.pragma.stockservice.domain.usecase;
 
 import com.pragma.stockservice.domain.model.Category;
 import com.pragma.stockservice.domain.model.ListPage;
 import com.pragma.stockservice.domain.model.SortDirection;
 import com.pragma.stockservice.domain.spi.ICategoryPersistencePort;
-import com.pragma.stockservice.domain.usecase.CategoryUseCase;
 import com.pragma.stockservice.infrastructure.exception.DuplicateCategoryNameException;
+import com.pragma.stockservice.infrastructure.exception.InvalidSortDirectionException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
-
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 class CategoryUseCaseTest {
 
@@ -49,13 +49,12 @@ class CategoryUseCaseTest {
         // Arrange
         Category category = new Category("Books", "Various books");
 
-        // Mock que simula que la categoría ya existe
         when(categoryPersistencePort.findByName(category.getName())).thenReturn(Optional.of(category));
 
         // Act & Assert
         assertThrows(DuplicateCategoryNameException.class, () -> categoryUseCase.save(category));
 
-        // Verifica que el método saveCategory no se llamó
+        // Verifica que el método save no se llamó
         verify(categoryPersistencePort, times(0)).save(category);
     }
 
@@ -83,9 +82,9 @@ class CategoryUseCaseTest {
         Category category3 = new Category("Toys", "Various toys");
 
         List<Category> categoryList = Arrays.asList(category1, category2, category3);
-        ListPage<Category> ListPage = new ListPage<>(categoryList, 0, 10, 3L, 1, true, true);
+        ListPage<Category> listPage = new ListPage<>(categoryList, 0, 10, 3L, 1, true, true);
 
-        when(categoryPersistencePort.getPaginationCategories(0, 10)).thenReturn(ListPage);
+        when(categoryPersistencePort.getPaginationCategories(0, 10)).thenReturn(listPage);
 
         // Act
         ListPage<Category> result = categoryUseCase.getPaginationCategoriesByAscAndDesc(SortDirection.ASC, 0, 10);
@@ -96,6 +95,31 @@ class CategoryUseCaseTest {
         assertEquals("Books", sortedCategories.get(0).getName());
         assertEquals("Electronics", sortedCategories.get(1).getName());
         assertEquals("Toys", sortedCategories.get(2).getName());
+
+        verify(categoryPersistencePort, times(1)).getPaginationCategories(0, 10);
+    }
+
+    @Test
+    void testGetPaginationCategoriesByAscAndDesc_whenSortDirectionIsDesc_shouldReturnSortedCategoriesDescending() {
+        // Arrange
+        Category category1 = new Category("Books", "Various books");
+        Category category2 = new Category("Electronics", "All kinds of electronics");
+        Category category3 = new Category("Toys", "Various toys");
+
+        List<Category> categoryList = Arrays.asList(category1, category2, category3);
+        ListPage<Category> listPage = new ListPage<>(categoryList, 0, 10, 3L, 1, true, true);
+
+        when(categoryPersistencePort.getPaginationCategories(0, 10)).thenReturn(listPage);
+
+        // Act
+        ListPage<Category> result = categoryUseCase.getPaginationCategoriesByAscAndDesc(SortDirection.DESC, 0, 10);
+
+        // Assert
+        List<Category> sortedCategories = result.getContent();
+        assertEquals(3, sortedCategories.size());
+        assertEquals("Toys", sortedCategories.get(0).getName());
+        assertEquals("Electronics", sortedCategories.get(1).getName());
+        assertEquals("Books", sortedCategories.get(2).getName());
 
         verify(categoryPersistencePort, times(1)).getPaginationCategories(0, 10);
     }
