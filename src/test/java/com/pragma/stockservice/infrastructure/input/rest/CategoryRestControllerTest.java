@@ -91,7 +91,7 @@ class CategoryRestControllerTest {
         int size = 10;
 
         List<Category> categoryList = List.of(new Category("Electronics", "Devices"));
-        ListPage<Category> customPage = new ListPage<>(categoryList, page, size, 1L, 1, true, true);
+        ListPage<Category> listPage = new ListPage<>(categoryList, page, size, 1L, 1, true, true);
         CategoryPaginationResponse<CategoryResponse> paginationResponse = new CategoryPaginationResponse<>(
                 List.of(new CategoryResponse(1L, "Electronics", "Devices")),
                 0,
@@ -103,8 +103,8 @@ class CategoryRestControllerTest {
         );
 
         when(responseMapper.toSortDirection(sortDirectionRequest)).thenReturn(sortDirection);
-        when(servicePort.getPaginationCategoriesByAscAndDesc(sortDirection, page, size)).thenReturn(customPage);
-        when(entityMapper.toCategoryPaginationResponse(customPage)).thenReturn(paginationResponse);
+        when(servicePort.getPaginationCategoriesByAscAndDesc(sortDirection, page, size)).thenReturn(listPage);
+        when(entityMapper.toCategoryPaginationResponse(listPage)).thenReturn(paginationResponse);
 
         // Act
         MvcResult result = mockMvc.perform(get("/categories/pagination")
